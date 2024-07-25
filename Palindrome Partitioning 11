@@ -1,0 +1,31 @@
+class Solution {
+    public List<List<String>> partition(String s) {
+        List<List<String>>a=new ArrayList<>();
+        List<String>b=new ArrayList<>();
+        help(0,a,b,s);
+        return a;
+    }
+    public boolean pal(String s,int start,int end){
+        while(start<=end){
+            if(s.charAt(start)!=s.charAt(end)){
+                return false;
+            }
+            start++;
+            end--;
+        }
+        return true;
+    }
+    public void help(int i,List<List<String>>a,List<String>b,String s){
+        if(i==s.length()){
+            a.add(new ArrayList<>(b));
+            return;
+        }
+        for(int j=i;j<s.length();j++){
+            if(pal(s,i,j)){
+                b.add(s.substring(i,j+1));
+                help(j+1,a,b,s);
+                b.remove(b.size()-1);
+            }
+        }
+    }
+}
